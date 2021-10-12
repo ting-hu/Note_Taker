@@ -1,16 +1,20 @@
 const express = require("express");
-//const fs = require("fs");
-//const path = require("paht");
+const PORT = process.env.PORT || 3000;
+
+const apiRoutes = require("./routes/apiRoutes");
+const htmlRoutes = require("./routes/htmlRoutes");
 
 const app = express();
-const PORT = process.env.PORT || 3001;
 
+// middleware deployment
+app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static("__dirname"));
 
-require("./routes/routes")(app);
+// assign routes to server
+app.use("/api", apiRoutes);
+app.use("/", htmlRoutes);
 
 app.listen(PORT, () => {
-  console.log(`API server now on port ${PORT}!`);
+  console.log(`Server listening on port ${PORT}!`);
 });
