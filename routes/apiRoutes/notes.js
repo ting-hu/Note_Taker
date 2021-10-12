@@ -1,35 +1,20 @@
 const router = require("express").Router();
 const path = require("path");
-const notesData = require("../../db/db.json");
-const notesFunctions = require("../../lib/notes");
+const { createNewNote, deleteNote } = require("../../lib/notes");
 
-// get notes from data file and render them to the page
+// Get notes
 router.get("/notes", (req, res) => {
-  try {
-    res.sendFile(path.join(__dirname, "../../db/db.json"));
-    res.status(200);
-  } catch (err) {
-    res.status(404).statusMessage("Notes data not found.");
-  }
+  return res.sendFile(path.join(__dirname, "../../db/db.json"));
 });
 
-// create a note
+// Create a note
 router.post("/notes", (req, res) => {
-  try {
-    res.json(createNote(req.body));
-    res.status(201);
-  } catch (err) {
-    res.status(500).statusMessage("Something went wrong.");
-  }
+  return res.json(createNewNote(req.body));
 });
-// delete a note
+
+// Delete a note
 router.delete("/notes/:id", (req, res) => {
-  try {
-    res.json(deleteNote(req.params.id));
-    res.status(200);
-  } catch (err) {
-    res.status(500).statusMessage("Something went wrong.");
-  }
+  return res.json(deleteNote(req.params.id));
 });
 
 module.exports = router;

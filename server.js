@@ -1,17 +1,17 @@
 const express = require("express");
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 const apiRoutes = require("./routes/apiRoutes");
 const htmlRoutes = require("./routes/htmlRoutes");
 
 const app = express();
 
-// middleware deployment
+// Middleware
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// assign routes to server
+// Assign routes to server
 app.use("/api", apiRoutes);
 app.use("/", htmlRoutes);
 
