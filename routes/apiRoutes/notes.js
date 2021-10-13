@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const path = require("path");
-const { createNewNote, deleteNote } = require("../../lib/notes");
+const notesData = require("../../db/db.json");
+const notesFunctions = require("../../lib/notes");
 
 // Get notes
 router.get("/notes", (req, res) => {
@@ -9,7 +10,7 @@ router.get("/notes", (req, res) => {
 
 // Create a note
 router.post("/notes", (req, res) => {
-  return res.json(createNewNote(req.body));
+  return res.json(createNote(req.body));
 });
 
 // Delete a note
